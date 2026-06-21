@@ -1,0 +1,137 @@
+{
+  "collections": [
+    {
+      "collectionName": "users",
+      "documentId": "{userId}",
+      "description": "User profiles.",
+      "fields": [
+        {
+          "name": "email",
+          "type": "string",
+          "description": "User email"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp"
+        }
+      ],
+      "rules": [
+        {
+          "allow": "read, write",
+          "condition": "request.auth != null && request.auth.uid == userId"
+        }
+      ]
+    },
+    {
+      "collectionName": "searchHistory",
+      "documentId": "{searchId}",
+      "description": "History of user flight searches.",
+      "fields": [
+        {
+          "name": "userId",
+          "type": "string",
+          "description": "ID of the user who made the search."
+        },
+        {
+          "name": "origin",
+          "type": "string",
+          "description": "Origin airport code (e.g., GRU)."
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "description": "Destination airport code (e.g., REC)."
+        },
+        {
+          "name": "departureDate",
+          "type": "string",
+          "description": "Departure date in ISO format."
+        },
+        {
+          "name": "returnDate",
+          "type": "string",
+          "description": "Return date in ISO format, if round trip."
+        },
+        {
+          "name": "passengers",
+          "type": "number",
+          "description": "Number of passengers."
+        },
+        {
+          "name": "timestamp",
+          "type": "timestamp",
+          "description": "When the search was made."
+        }
+      ],
+      "rules": [
+        {
+          "allow": "read, delete",
+          "condition": "request.auth != null && resource.data.userId == request.auth.uid"
+        },
+        {
+          "allow": "create",
+          "condition": "request.auth != null && request.resource.data.userId == request.auth.uid"
+        },
+        {
+          "allow": "update",
+          "condition": "request.auth != null && resource.data.userId == request.auth.uid && request.resource.data.userId == request.auth.uid"
+        }
+      ]
+    },
+    {
+      "collectionName": "priceAlerts",
+      "documentId": "{alertId}",
+      "description": "Price drop alerts for users.",
+      "fields": [
+        {
+          "name": "userId",
+          "type": "string",
+          "description": "ID of the user who created the alert."
+        },
+        {
+          "name": "origin",
+          "type": "string",
+          "description": "Origin airport code."
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "description": "Destination airport code."
+        },
+        {
+          "name": "maxPriceReais",
+          "type": "number",
+          "description": "Maximum price in BRL to trigger alert."
+        },
+        {
+          "name": "maxPriceMiles",
+          "type": "number",
+          "description": "Maximum price in miles to trigger alert."
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "description": "Whether the alert is currently active."
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp"
+        }
+      ],
+      "rules": [
+        {
+          "allow": "read, delete",
+          "condition": "request.auth != null && resource.data.userId == request.auth.uid"
+        },
+        {
+          "allow": "create",
+          "condition": "request.auth != null && request.resource.data.userId == request.auth.uid"
+        },
+        {
+          "allow": "update",
+          "condition": "request.auth != null && resource.data.userId == request.auth.uid && request.resource.data.userId == request.auth.uid"
+        }
+      ]
+    }
+  ]
+}

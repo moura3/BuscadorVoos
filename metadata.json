@@ -1,0 +1,6 @@
+{
+  "name": "Milhas e Passagens",
+  "description": "Busca e comparação de passagens aéreas em Reais e Milhas (Smiles, LATAM Pass, TudoAzul) com alertas de preço e histórico.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
